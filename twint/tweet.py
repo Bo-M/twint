@@ -98,10 +98,39 @@ def Tweet(tw, config):
     t.timezone = strftime("%z", localtime())
     t.mentions = _get_mentions(tw)
     t.reply_to = _get_reply_to(tw)
+
+    t.quote_count = tw.get('quote_count', 0)
+    t.followers_count = tw.get('user_data', {}).get('followers_count', 0)
+    t.statuses_count = tw.get('user_data', {}).get('statuses_count', 0)
+    t.media_count = tw.get('user_data', {}).get('media_count', 0)
+    t.verified = tw.get('user_data', {}).get('verified', 0)
+    t.favourites_count = tw.get('user_data', {}).get('favourites_count', 0)
+    t.listed_count = tw.get('user_data', {}).get('listed_count', 0)
+    t.friends_count = tw.get('user_data', {}).get('friends_count', 0)
+    t.normal_followers_count = tw.get('user_data', {}).get('normal_followers_count', 0)
+    t.fast_followers_count = tw.get('user_data', {}).get('fast_followers_count', 0)
+    t.description = tw.get('user_data', {}).get('description', '')
+    t.location = tw.get('user_data', {}).get('location', '')
+    _profile_created_at = tw.get('user_data', {}).get('created_at', '')
+    _profile_created_at = datetime.strptime(_profile_created_at, '%a %b %d %H:%M:%S %z %Y')
+    _profile_created_at = utc_to_local(_profile_created_at)
+    t.profile_created_at = str(_profile_created_at.strftime(Tweet_formats['datetime']))
+    t.profile_created_at_datestamp = str(_profile_created_at.strftime(Tweet_formats['datestamp']))
+    t.profile_banner_url = tw.get('user_data', {}).get('profile_banner_url', '')
+    t.profile_image_url = tw.get('user_data', {}).get('profile_image_url', '')
+
     try:
         t.urls = [_url['expanded_url'] for _url in tw['entities']['urls']]
     except KeyError:
         t.urls = []
+    try:
+        t.profile_urls = [_url['expanded_url'] for _url in tw['user_data']['entities']['url']['urls']]
+    except KeyError:
+        t.profile_urls = []
+    try:
+        t.description_urls = [_url['expanded_url'] for _url in tw['user_data']['entities']['description']['urls']]
+    except KeyError:
+        t.description_urls = []
     try:
         t.photos = [_img['media_url_https'] for _img in tw['entities']['media'] if _img['type'] == 'photo' and
                     _img['expanded_url'].find('/photo/') != -1]

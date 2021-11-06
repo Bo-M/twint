@@ -36,6 +36,25 @@ def tweetData(t):
             "translate": t.translate,
             "trans_src": t.trans_src,
             "trans_dest": t.trans_dest,
+            "quote_count": t.quote_count,
+            "followers_count": t.followers_count,
+            "statuses_count": t.statuses_count,
+            "media_count": t.media_count,
+            "verified": t.verified,
+            "favourites_count": t.favourites_count,
+            "listed_count": t.listed_count,
+            "friends_count": t.friends_count,
+            "normal_followers_count": t.normal_followers_count,
+            "fast_followers_count": t.fast_followers_count,
+            "description": t.description,
+            "location": t.location,
+            "user_id_str": t.user_id_str,
+            "description_urls": t.description_urls,
+            "profile_urls": t.profile_urls,
+            "profile_created_at": t.profile_created_at,
+            "profile_created_at_datestamp": t.profile_created_at_datestamp,
+            "profile_image_url": t.profile_image_url,
+            "profile_banner_url": t.profile_banner_url
             }
     return data
 
@@ -76,7 +95,26 @@ def tweetFieldnames():
             "retweet_date",
             "translate",
             "trans_src",
-            "trans_dest"
+            "trans_dest",
+            "followers_count",
+            "statuses_count",
+            "media_count",
+            "verified",
+            "favourites_count",
+            "listed_count",
+            "friends_count",
+            "normal_followers_count",
+            "fast_followers_count",
+            "description",
+            "location",
+            "user_id_str",
+            "description_urls",
+            "profile_urls",
+            "profile_created_at",
+            "profile_created_at_datestamp",
+            "quote_count",
+            "profile_image_url"
+            "profile_banner_url"
             ]
     return fieldnames
 
